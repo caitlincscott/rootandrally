@@ -16,13 +16,16 @@ files <- lapply(temp, read.csv)
 sched <- do.call(rbind, files)
 
 sched <- sched %>%
-            distinct()
+            distinct(Start.Date, Start.Time.ET, Subject, Location)
 
-sched$date <- as.Date(sched$Start.Date, format = "%m/%d/%Y")
-class(sched$date)
+sched$Date <- format(as.Date(sched$Start.Date, format = "%m/%d/%Y"), format = "%a %b %d")
 
-sched$Sport <- gsub("WNBA", ji("basketball"), sched$Sport)
-sched$Sport <- gsub("NWSL", ji("soccer"), sched$Sport)
+sched <- subset(sched, select = -Start.Date)
+sched <- sched[,c(4,1,2,3)]
+
+colnames(sched)[2:3] <- c("Start Time (ET)", "Game")
+#sched$Sport <- gsub("WNBA", ji("basketball"), sched$Sport)
+#sched$Sport <- gsub("NWSL", ji("soccer"), sched$Sport)
 
 sched %>% 
 datatable(rownames = FALSE,
