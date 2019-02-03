@@ -3,23 +3,23 @@ title: "Schedules"
 type: "schedules"
 ---
 
-## 2018 Schedules
+## 2019 Schedules
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
-library(googlesheets)
 library(dplyr)
 library(DT)
 library(emo)
-my_gsheet_key <- "1vWC1mHbpr9UukGPYTUr8eo5IVU_ePTW79AKzQf28v2Q"
-my_gsheet <- gs_key(my_gsheet_key, visibility = "public") 
 
-nwsl <- gs_read(ss = my_gsheet, ws = "nwsl")
+temp <- list.files(pattern = "*.csv")
+files <- lapply(temp, read.csv)
 
-wnba <- gs_read(ss = my_gsheet, ws = "wnba")
+sched <- do.call(rbind, files)
 
-sched <- rbind(nwsl, wnba)
+sched <- sched %>%
+            distinct()
 
-sched <- select(sched, -c("Time"))
+sched$date <- as.Date(sched$Start.Date, format = "%m/%d/%Y")
+class(sched$date)
 
 sched$Sport <- gsub("WNBA", ji("basketball"), sched$Sport)
 sched$Sport <- gsub("NWSL", ji("soccer"), sched$Sport)
