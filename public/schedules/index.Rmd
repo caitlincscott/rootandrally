@@ -9,6 +9,7 @@ type: "schedules"
 library(dplyr)
 library(DT)
 library(emo)
+library(lubridate)
 
 temp <- list.files(pattern = "*.csv")
 files <- lapply(temp, read.csv)
@@ -18,7 +19,10 @@ sched <- do.call(rbind, files)
 sched <- sched %>%
             distinct(Start.Date, Start.Time.ET, Subject, Location)
 
-sched$Date <- format(as.Date(sched$Start.Date, format = "%m/%d/%Y"), format = "%a %b %d")
+
+
+sched$Date <- as.Date(sched$Start.Date, "%m/%d/%Y")
+
 
 sched <- subset(sched, select = -Start.Date)
 sched <- sched[,c(4,1,2,3)]
@@ -27,18 +31,18 @@ colnames(sched)[2:3] <- c("Start Time (ET)", "Game")
 #sched$Sport <- gsub("WNBA", ji("basketball"), sched$Sport)
 #sched$Sport <- gsub("NWSL", ji("soccer"), sched$Sport)
 
-sched %>% 
-datatable(rownames = FALSE,
+datatable(sched %>% mutate(DUMMY = Date,Date = format(Date, format = "%b %d")),
+            rownames = FALSE,
           options = list(
-            pageLength = 15, 
+            pageLength = 20, 
             autoWidth = TRUE, 
             lengthChange = FALSE,
             paginate = TRUE,
             info = FALSE,
             columnDefs = list(list(
-              className = 'dt-left', 
-              targets = 0),
-              list(className = 'dt-center', targets = 1))))
+              targets = 0,orderData = 4),
+              list(targets = 4, visible = FALSE))))
 
+             
 ```
 
