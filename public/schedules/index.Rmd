@@ -31,7 +31,8 @@ colnames(sched)[2:3] <- c("Start Time (ET)", "Game")
 #sched$Sport <- gsub("WNBA", ji("basketball"), sched$Sport)
 #sched$Sport <- gsub("NWSL", ji("soccer"), sched$Sport)
 
-datatable(sched %>% mutate(DUMMY = Date,Date = format(Date, format = "%b %d")),
+datatable(sched %>% mutate(DUMMY = Date,Date = paste(month(Date, label = TRUE), day(Date))) %>%
+            arrange(DUMMY),
             rownames = FALSE,
           options = list(
             pageLength = 20, 
