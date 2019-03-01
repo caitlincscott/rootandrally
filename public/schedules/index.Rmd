@@ -2,9 +2,7 @@
 title: "Schedules"
 type: "schedules"
 ---
-
 ## 2019 Schedules
-
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(DT)

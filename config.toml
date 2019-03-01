@@ -4,6 +4,7 @@ title = "Root & Rally"
 theme = "kube"
 description = "Root & Rally is a community for women's professional sports fans. Find games to attend in your area."
 Paginate = 4
+ignoreFiles = [ "^logo_main\\.png$" ]
 [Params]
   RSSLink = "/index.xml"
   author = "Root & Rally" # add your company name
