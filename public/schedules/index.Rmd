@@ -12,12 +12,10 @@ library(lubridate)
 temp <- list.files(pattern = "*.csv")
 files <- lapply(temp, read.csv)
 
-sched <- do.call(rbind, files)
+sched <- do.call(rbind, files[c(1:7, 9:13)])
 
 sched <- sched %>%
             distinct(Start.Date, Start.Time.ET, Subject, Location)
-
-
 
 sched$Date <- as.Date(sched$Start.Date, "%m/%d/%Y")
 
@@ -28,6 +26,14 @@ sched <- sched[,c(4,1,2,3)]
 colnames(sched)[2:3] <- c("Start Time (ET)", "Game")
 #sched$Sport <- gsub("WNBA", ji("basketball"), sched$Sport)
 #sched$Sport <- gsub("NWSL", ji("soccer"), sched$Sport)
+
+nwsl <- files[[8]]
+nwsl$Date <- as.Date(nwsl$Start.date, "%Y-%m-%d")
+nwsl <- nwsl[c("Subject", "Date", "Start.time", "Location")]
+colnames(nwsl)[c(1,3)] <- c("Game", "Start Time (ET)")
+## have to convert start time for nwsl from pacific time to eastern time
+nwsl <- nwsl[,c(2,3,1,4)]
+sched <- rbind(sched, nwsl)
 
 datatable(sched %>% mutate(DUMMY = Date,Date = paste(month(Date, label = TRUE), day(Date))) %>%
             arrange(DUMMY),
