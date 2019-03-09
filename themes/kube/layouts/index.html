@@ -2,18 +2,28 @@
 {{ define "header"}} {{ partial "header" .}} {{end}}
 {{ define "main"}}
 
+<html>
+    <link rel="stylesheet" href="/static/css/custom.css" />
+</html>
+<div id="bigger">
+  
 <div id="main">
+  
   <div id="hero">
     <h1>{{.Title}}</h1>
     <p>{{.Description}}</p>
   </div>
-  <div id="action-buttons">
-    <a class="button primary big" href="https://github.com/jeblister/kube/releases" onclick="_gaq.push(['_trackEvent', 'kube', 'download']);">Download</a> <a class="button outline big" href="https://github.com/jeblister/kube" onclick="_gaq.push(['_trackEvent', 'kube', 'github']);">View on Github</a>
-    <p>Zip-archive, includes all the source and site example files</p>
+  
+    <div id="action-buttons">
+    <a class="button primary big" href="/Schedules">Schedules</a> 
   </div>
+  
   <div class="message focus" data-component="message"> <span class="close small"></span>
     <a class="button inverted small " href="https://imperavi.com/kube/" >Kube </a> from <a href="https://imperavi.com/">imperavi</a> is an awesome <mark>CSS & JS Framework</mark> and i designed this template for <a href="https://gohugo.io">hugo</a> with the same original philosophy !
   </div>
+  
+   </div>
+
   <div id="kube-features">
     <div class="row gutters">
       <div class="col col-4 item">
@@ -53,6 +63,7 @@
       Kube Framework is absolutely free for personal or commercial use.</p>
     </div>
   </div>
+</div>
 </div>
 </div>
 {{ end }}

@@ -4,7 +4,7 @@ title = "About"
 +++
 ## What is Root & Rally?
 
-Root & Rally is a platform committed to championing women’s professional sports. We're on a mission to make make it easy to find, watch, and attend women's pro sporting events in your area, by showcasing all game information in a central place. 
+Root & Rally is a platform committed to championing women’s professional sports. We're on a mission to make make it easy to find and attend women's pro sporting events by showcasing all game information in a central place. 
 
 ## Who started it? 
 Hi! I'm Caitlin Scott, the founder. 
